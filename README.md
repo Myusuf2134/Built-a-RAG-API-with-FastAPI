@@ -74,3 +74,22 @@ The goal was to **simulate a real-world AI backend system** similar to what powe
 
 1. Built API using FastAPI  
 2. Created a POST endpoint:
+3. Accepted user input (`q=question`)  
+4. Returned AI-generated response  
+
+> Understanding how FastAPI handles routing and request/response cycles was a key learning moment.
+
+---
+
+### Step 5: Running and Testing
+
+1. Ran the server using Uvicorn  
+2. Tested API using:
+   - curl (command line)  
+   - Swagger UI (`/docs`)  
+
+Example request:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/query" \
+--data-urlencode "q=What is Kubernetes?"
