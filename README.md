@@ -1,172 +1,76 @@
-RAG API Project: AI-Powered Question Answering with FastAPI
-Overview
+# 🤖 RAG API Project: AI-Powered Question Answering with FastAPI
 
-This project is a hands-on implementation of a Retrieval-Augmented Generation (RAG) API, designed to simulate how modern AI systems combine search + generation to answer questions accurately.
+## Overview
+
+This project is a **hands-on implementation of a Retrieval-Augmented Generation (RAG) API**, designed to simulate how modern AI systems combine **search + generation** to answer questions accurately.
 
 It helped me practice:
 
-Building an API using FastAPI
+- Building an API using FastAPI  
+- Creating and storing embeddings with Chroma (vector database)  
+- Running a local LLM using Ollama (TinyLlama)  
+- Designing a query endpoint (`/query`) for real-time AI responses  
+- Understanding how RAG pipelines work end-to-end  
+- Testing APIs using Swagger UI and curl  
+- Debugging how data flows between embeddings → retrieval → LLM  
 
-Creating and storing embeddings with Chroma (vector database)
+The goal was to **simulate a real-world AI backend system** similar to what powers chatbots, internal knowledge assistants, and AI search tools.
 
-Running a local LLM using Ollama (TinyLlama)
+---
 
-Designing a query endpoint (/query) for real-time AI responses
+## 🧠 Architecture / How It Works
 
-Understanding how RAG pipelines work end-to-end
+**Flow of Data:**
 
-Testing APIs using Swagger UI and curl
+1. User sends a question to `/query`  
+2. The question is converted into embeddings  
+3. Chroma compares it with stored document embeddings  
+4. Relevant documents are retrieved  
+5. Context + question are sent to the LLM (TinyLlama via Ollama)  
+6. The LLM generates a final response  
+7. API returns the answer  
 
-Debugging how data flows between embeddings → retrieval → LLM
+---
 
-The goal was to simulate a real-world AI backend system similar to what powers tools like chatbots, internal knowledge assistants, and AI search engines.
+## 🔧 How I Built It
 
-🧠 Architecture / How It Works
+### Step 1: Environment Setup
 
-Flow of Data:
+1. Set up Python virtual environment  
+2. Installed dependencies:
+   - FastAPI  
+   - Uvicorn  
+   - ChromaDB  
+3. Installed Ollama to run local LLMs  
+4. Pulled the TinyLlama model for lightweight testing  
 
-User sends a question to /query
+> Using a local LLM removes dependency on external APIs and simulates real production-like AI systems.
 
-The question is converted into embeddings
+---
 
-Chroma compares it with stored document embeddings
+### Step 2: Creating the Knowledge Base
 
-Relevant documents are retrieved
+1. Created text documents (e.g., “What is Kubernetes”)  
+2. Stored them as the project’s knowledge base  
+3. Generated embeddings for each document  
+4. Stored embeddings in Chroma vector database  
 
-Context + question are sent to the LLM (TinyLlama via Ollama)
+> This step helped me understand how raw text becomes searchable using embeddings instead of keywords.
 
-The LLM generates a final response
+---
 
-API returns the answer
+### Step 3: Building the RAG Pipeline
 
-🔧 How I Built It
-Step 1: Environment Setup
+1. Converted incoming user queries into embeddings  
+2. Queried Chroma to find the most relevant documents  
+3. Passed retrieved context into the LLM  
+4. Used prompt engineering to generate clear, concise answers  
 
-Set up Python virtual environment
+> The biggest insight here was learning how retrieval improves LLM accuracy by grounding responses in real data.
 
-Installed dependencies:
+---
 
-FastAPI
+### Step 4: Creating the API
 
-Uvicorn
-
-ChromaDB
-
-Installed Ollama to run local LLMs
-
-Pulled the TinyLlama model for lightweight testing
-
-Using a local LLM was important because it removes dependency on external APIs and simulates real offline AI systems.
-
-Step 2: Creating the Knowledge Base
-
-Created text documents (e.g., “What is Kubernetes”)
-
-Stored them as the project’s knowledge base
-
-Generated embeddings for each document
-
-Stored embeddings in Chroma vector database
-
-This step helped me understand how raw text becomes searchable using embeddings instead of keywords.
-
-Step 3: Building the RAG Pipeline
-
-Converted incoming user queries into embeddings
-
-Queried Chroma to find the most relevant documents
-
-Passed retrieved context into the LLM
-
-Used prompt engineering to ensure:
-
-Clear
-
-Concise answers
-
-The biggest insight here was learning how retrieval improves LLM accuracy by grounding responses in real data.
-
-Step 4: Creating the API
-
-Built API using FastAPI
-
-Created a POST endpoint:
-
-/query
-
-Accepted user input (q=question)
-
-Returned AI-generated response
-
-Understanding how FastAPI handles routing and request/response cycles was a key learning moment.
-
-Step 5: Running and Testing
-
-Ran the server using Uvicorn
-
-Tested API using:
-
-curl (command line)
-
-Swagger UI (/docs)
-
-Example request:
-
-curl -X POST "http://127.0.0.1:8000/query" \
---data-urlencode "q=What is Kubernetes?"
-
-Swagger UI made debugging much easier since I could test endpoints without writing extra code.
-
-🚧 Challenges & Debugging
-
-Understanding how FastAPI abstracts routing
-
-Figuring out how embeddings connect to retrieval
-
-Debugging incorrect or irrelevant responses from the LLM
-
-Learning how context affects answer quality
-
-The hardest part was connecting all components (API + vector DB + LLM). Once it clicked, the whole system made sense.
-
-🎯 Key Takeaways
-
-RAG is much more powerful than plain LLM prompting
-
-Embeddings enable semantic search instead of keyword search
-
-APIs are the backbone of production AI systems
-
-Local LLMs (via Ollama) are great for learning and prototyping
-
-🚀 Future Improvements
-
-Add Docker containerization
-
-Improve prompt engineering for better responses
-
-Expand knowledge base with more documents
-
-Add authentication and rate limiting
-
-Deploy API to cloud (AWS/GCP)
-
-📌 Why This Project Matters
-
-This project reflects how real-world systems are built:
-
-AI assistants
-
-Internal company knowledge bots
-
-DevOps documentation search tools
-
-It demonstrates my ability to:
-
-Build backend systems
-
-Work with AI pipelines
-
-Debug complex workflows
-
-Think like an engineer, not just write code
+1. Built API using FastAPI  
+2. Created a POST endpoint:
